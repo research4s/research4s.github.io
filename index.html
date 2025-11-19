@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online PGP - Generate Keys, Encrypt/Decrypt, Sign/Verify</title>
+    <link rel="icon" href="asset/favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="asset/styles.css">
+    <meta name="description" content="Discover our PGP encryption/decryption site, where you can generate keys, encrypt and decrypt messages securely. Protect your communications with our easy-to-use PGP system.">
+    <!-- Using system fonts only for full offline/privacy -->
+    <style>
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #333;
+            background-image: url('static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            width: 100%;
+            height: 100vh;
+            font-size: 18px;
+            margin: 0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="asset/logo.png" alt="Logo" width="200" height="200">
+    </div>
+
+    <div class="section" onclick="toggleSection('encryptionSection')">
+        <h1>Encrypt & Decrypt pgp message</h1>
+    </div>
+    <div id="encryptionSection" class="section-content">
+        <h2>Decrypt a Message</h2>
+        <textarea id="privateKeyDecrypt" placeholder="Enter the private key here"></textarea>
+        <button class="importButton" onclick="importKey('privateKeyDecrypt')">IMPORT PRIVATE KEY</button>
+        <input type="password" id="passphraseDecrypt" placeholder="Enter the passphrase here">
+        <textarea id="cipherTextDecrypt" placeholder="Enter the text to be decoded here"></textarea>
+        <button onclick="decryptMessage()">DECRYPT TEXT</button>
+        <div class="output-container">
+            <textarea id="plainTextDecrypt" placeholder="Decoded text will be displayed here" readonly></textarea>
+            <span class="copyIcon" onclick="copyToClipboard('plainTextDecrypt')">📋</span>
+        </div>
+
+        <h2>Encrypt a Message</h2>
+        <textarea id="publicKeyEncrypt" placeholder="Enter the recipient's public key here"></textarea>
+        <button class="importButton" onclick="importKey('publicKeyEncrypt')">IMPORT PUBLIC KEY</button>
+        <textarea id="plainText" placeholder="Enter the text to be encrypted here"></textarea>
+        <button onclick="encryptMessage()">ENCRYPT TEXT</button>
+        <div class="output-container">
+            <textarea id="cipherText" placeholder="Text encrypted will be displayed here" readonly></textarea>
+            <span class="copyIcon" onclick="copyToClipboard('cipherText')">📋</span>
+        </div>
+    </div>
+
+    <div class="section" onclick="toggleSection('keyGenerationSection')">
+        <h1>GENERATE NEW PGP KEYS PAIR</h1>
+    </div>
+    <div id="keyGenerationSection" class="section-content">
+        <input type="text" id="name" placeholder="Enter your name here">
+        <input type="email" id="email" placeholder="Enter your email here">
+        <input type="password" id="passphrase" placeholder="Enter your passphrase here">
+        <button onclick="generateKeys()">GENERATE NEW PGP KEYS PAIR</button>
+        <div class="output-container">
+            <textarea id="privateKey" placeholder="Your private key will be displayed here" readonly></textarea>
+            <span class="copyIcon" onclick="copyToClipboard('privateKey')">📋</span>
+        </div>
+        <button class="downloadButton" onclick="downloadKey('privateKey')">DOWNLOAD PRIVATE KEY</button>
+        <div class="output-container">
+            <textarea id="publicKey" placeholder="Your public key will be displayed here" readonly></textarea>
+            <span class="copyIcon" onclick="copyToClipboard('publicKey')">📋</span>
+        </div>
+        <button class="downloadButton" onclick="downloadKey('publicKey')">DOWNLOAD PUBLIC KEY</button>
+    </div>
+
+    <div class="section" onclick="toggleSection('signingSection')">
+        <h1>Sign & Verify pgp message</h1>
+    </div>
+    <div id="signingSection" class="section-content">
+        <h2>Sign a Message</h2>
+        <textarea id="privateKeySign" placeholder="Enter the private key here"></textarea>
+        <button class="importButton" onclick="importKey('privateKeySign')">IMPORT PRIVATE KEY</button>
+        <input type="password" id="passphraseSign" placeholder="Enter the passphrase here">
+        <textarea id="plainTextSign" placeholder="Enter the text to be signed here"></textarea>
+        <button onclick="signMessage()">SIGN TEXT</button>
+        <div class="output-container">
+            <textarea id="signedMessage" placeholder="Signed message will be displayed here" readonly></textarea>
+            <span class="copyIcon" onclick="copyToClipboard('signedMessage')">📋</span>
+        </div>
+
+        <h2>Verify a Message</h2>
+        <textarea id="publicKeyVerify" placeholder="Enter the public key of the person who signed the message here"></textarea>
+        <button class="importButton" onclick="importKey('publicKeyVerify')">IMPORT PUBLIC KEY</button>
+        <textarea id="signedMessageVerify" placeholder="Enter the signed message to be verified here"></textarea>
+        <button onclick="verifyMessage()">VERIFY TEXT</button>
+        <p id="verifyResult">Verification result will be displayed here</p>
+    </div>
+
+    <!-- locally-hosted OpenPGP and site JS -->
+    <script src="asset/openpgp.min.js" defer></script>
+    <script src="asset/s.js" defer></script>
+</body>
+</html>
