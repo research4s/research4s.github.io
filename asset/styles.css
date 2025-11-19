@@ -12,24 +12,31 @@ body {
 /* ===== Subtle Matrix Background (monochrome) ===== */
 
 body::after {
-    content: "";
+    content: "PGP • SECURITY • CRYPTO • PRIVACY • ENCRYPTION • ";
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 300%;
+    height: 300%;
     pointer-events: none;
 
-    background-image: url("https://i.imgur.com/9O8wVQp.png"); /* grayscale matrix code */
-    opacity: 0.08;
-    animation: matrixDrift 45s linear infinite;
+    font-family: monospace;
+    font-size: 18px;
+    letter-spacing: 8px;
+    line-height: 40px;
+    white-space: nowrap;
+
+    color: rgba(255, 255, 255, 0.04);
+
+    animation: textScroll 25s linear infinite;
     z-index: -2;
 }
 
-@keyframes matrixDrift {
-    from { background-position-y: 0; }
-    to { background-position-y: 1200px; }
+@keyframes textScroll {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
 }
+
 
 /* ===== Logo Container ===== */
 
@@ -185,3 +192,4 @@ button:hover {
 
     h1 { font-size: 22px; }
 }
+
